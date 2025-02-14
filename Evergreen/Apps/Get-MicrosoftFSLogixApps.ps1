@@ -28,7 +28,7 @@ Function Get-MicrosoftFSLogixApps {
 
             # Construct the output; Return the custom object to the pipeline
             $PSObject = [PSCustomObject] @{
-                Version = [RegEx]::Match($($response.ResponseUri.AbsoluteUri), $res.Get.Download.MatchVersion).Captures.Value
+                Version = [RegEx]::Match($response.ResponseUri.AbsoluteUri, "FSLogix_(\d+\.\d+)\.zip").Groups[1].Value
                 Date    = ConvertTo-DateTime -DateTime $response.LastModified -Pattern $res.Get.Download.DatePattern
                 Channel = $item.Name
                 URI     = $response.ResponseUri.AbsoluteUri
